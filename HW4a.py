@@ -1,26 +1,37 @@
 ''' Author: Samantha Inneo
-    Description: This assignment uses a github API to return the repo names and commits of a user'''
+    Description: This assignment uses a github API to return the repo names and commits of a user
+    Github Link: https://github.com/samanthainneo99/SSW567HW4
+    How I designed the code: 
+    One of the main points I considered when desigining easily testable code was the easy of finding suitable test cases. This program didn't really have any edge cases to worry 
+    about, which would normally be one of the first things I would consider. For this assingment, I was worried about formatting the output in a way that would be consistent across all
+    the cases.  I used the example given in the documentation for this assignment because I felt it worked well. Another thing I considered were the if statements to check invalid
+    inputs or other failures.  In the github documentation for the API, the return code 200 was given for nonexistent users.  I knew I would have to test for this, so it was the first 
+    thing I check after calling the API. Next, I needed a way to check for users without any repos. I did so by checking the length of the json.  If this is 0, then the user does not
+    have any repositories. 
+    '''
 import requests
 import json
 
 def FindRepos(username):
-    response = requests.get("https://api.github.com/users/"+username+"/repos")
+    repoList = requests.get("https://api.github.com/users/"+username+"/repos")
     
-    if response.status_code != 200:
+    if repoList.status_code != 200: #from documentation
         return("Cannot find requested user")
 
-    response = response.json()
+    repoList = repoList.json()
 
-    if len(response) == 0:
+    output = []
+
+    if len(repoList) == 0: #no repos were found
         return ("No Repositories")
-  
-    for repo in response:
-        repoResponse = requests.get(repo['commits_url'].split("{")[0])
-        repoResponse = repoResponse.json()
-        # print(str(repoResponse))
-        print("Repo: "+ repo['name'] + " Number of commits: " + str(len(repoResponse)))
-   
+
+    for r in repoList:
+        repos = requests.get(r['commits_url'].split("{")[0])
+        repos = repos.json()
+        print("Repo: "+ r['name'] + " Number of commits: " + str(len(repos)))
     return True
+
+
 
 if __name__ == "__main__":
     repo = input("Please enter Github username: ")
