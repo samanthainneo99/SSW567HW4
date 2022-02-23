@@ -1,6 +1,7 @@
 ''' Author: Samantha Inneo
     Description: This assignment uses a github API to return the repo names and commits of a user
     Github Link: https://github.com/samanthainneo99/SSW567HW4
+
     How I designed the code: 
     One of the main points I considered when desigining easily testable code was the easy of finding suitable test cases. This program didn't really have any edge cases to worry 
     about, which would normally be one of the first things I would consider. For this assingment, I was worried about formatting the output in a way that would be consistent across all
@@ -20,7 +21,6 @@ def FindRepos(username):
 
     repoList = repoList.json()
 
-    output = []
 
     if len(repoList) == 0: #no repos were found
         return ("No Repositories")
@@ -29,7 +29,8 @@ def FindRepos(username):
         repos = requests.get(r['commits_url'].split("{")[0])
         repos = repos.json()
         print("Repo: "+ r['name'] + " Number of commits: " + str(len(repos)))
-    return True
+    
+    return len(repoList) #i return the amount of repos since it is relevant
 
 
 
