@@ -16,16 +16,16 @@ import json
 def FindRepos(username):
     repoList = requests.get("https://api.github.com/users/"+username+"/repos")
     
-    if repoList.status_code != 200: #from documentation
+    if repoList.status_code != 200: #code from documentation when user can't be found
         return("Cannot find requested user")
 
-    repoList = repoList.json()
+    repoList = repoList.json() #store json results
 
 
     if len(repoList) == 0: #no repos were found
         return ("No Repositories")
 
-    for r in repoList:
+    for r in repoList: #for every repo, get the number of commits and print formatted nicely
         repos = requests.get(r['commits_url'].split("{")[0])
         repos = repos.json()
         print("Repo: "+ r['name'] + " Number of commits: " + str(len(repos)))
