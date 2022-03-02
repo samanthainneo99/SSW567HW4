@@ -23,10 +23,10 @@ class TestGithubAPI(unittest.TestCase):
     def test1(self, mock_get):
         mock_get.return_value.ok = False
         self.assertEqual(FindRepos('samanthainneo9999'), "Cannot find requested user")
-    # @patch('requests.get')
-    # def test2(self, mock_request):
-    #     mock_request.get('https://api.github.com/users/samanthainneo99/repos')
-    #     self.assertEqual(FindRepos('samanthainneo99'), 11)
+    @patch('requests.get')
+    def test2(self, mock_request):
+        mock_request.get('https://api.github.com/users/samanthainneo99/repos')
+        self.assertEqual(FindRepos('samanthainneo99'), 11)
     # @patch('requests.get')
     # def test3(self, mock_request):
     #     mock_request.get('https://api.github.com/users/samanthainneo99/repos')
