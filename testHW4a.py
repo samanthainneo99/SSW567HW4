@@ -12,12 +12,12 @@ from HW4a import FindRepos
 class TestGithubAPI(unittest.TestCase):
     @patch('requests.get')
     def test1(self, mock_get):
-        mock_get.return_value.ok = True
+        mock_get.return_value.ok = False
         self.assertEqual(FindRepos('samanthainneo9999'), "Cannot find requested user")
-    def test2(self):
+    def test2(self, mock_request):
         mock_request.get('https://api.github.com/users/samanthainneo99/repos')
         self.assertEqual(FindRepos('samanthainneo99'), 11)
-    def test3(self):
+    def test3(self, mock_request):
         mock_request.get('https://api.github.com/users/samanthainneo99/repos')
         self.assertEqual(FindRepos('samanthainneo'), "No Repositories")
     def test_request_response(self):#This is the example given by the third link provided in the assignment
