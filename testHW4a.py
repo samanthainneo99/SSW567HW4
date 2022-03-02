@@ -22,7 +22,6 @@ class TestGithubAPI(unittest.TestCase):
     def test3(self, mock_request):
         mock_request.get('https://api.github.com/users/samanthainneo99/repos')
         self.assertEqual(FindRepos('samanthainneo'), "No Repositories")
-    @patch('requests.get')
     def test_request_response(self):#This is the example given by the third link provided in the assignment
         # Send a request to the API server and store the response.
         response = requests.get('https://api.github.com/users/samanthainneo99/repos') 
