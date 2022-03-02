@@ -10,6 +10,7 @@
     thing I check after calling the API. Next, I needed a way to check for users without any repos. I did so by checking the length of the json.  If this is 0, then the user does not
     have any repositories. 
     '''
+from nose.tools import assert_true    
 import requests
 import json
 
